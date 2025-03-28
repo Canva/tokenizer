@@ -2,7 +2,6 @@ package tokenizer
 
 import (
 	"fmt"
-	"log"
 	"os"
 )
 
@@ -12,13 +11,15 @@ var (
 )
 
 func init() {
-	// default path: {$HOME}/.cache/tokenizer
-	homeDir := os.Getenv("HOME")
-	CachedDir = fmt.Sprintf("%s/.cache/tokenizer", homeDir)
+	// Try TEST_TMPDIR first, then HOME/.cache/tokenizer
+	if tmpDir := os.Getenv("TEST_TMPDIR"); tmpDir != "" {
+		CachedDir = tmpDir
+	} else {
+		homeDir := os.Getenv("HOME")
+		CachedDir = fmt.Sprintf("/.cache/tokenizer", homeDir)
+	}
 
 	initEnv()
-
-	log.Printf("INFO: CachedDir=%q\n", CachedDir)
 }
 
 func initEnv() {
@@ -29,7 +30,7 @@ func initEnv() {
 
 	if _, err := os.Stat(CachedDir); os.IsNotExist(err) {
 		if err := os.MkdirAll(CachedDir, 0755); err != nil {
-			log.Fatal(err)
+			panic(err)
 		}
 	}
 }
