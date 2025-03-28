@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"sort"
 
-	"github.com/sugarme/tokenizer"
+	"github.com/Canva/tokenizer"
 )
 
 type config struct {

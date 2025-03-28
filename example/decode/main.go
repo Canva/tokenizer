@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/sugarme/tokenizer/pretrained"
+	"github.com/Canva/tokenizer/pretrained"
 )
 
 func main() {

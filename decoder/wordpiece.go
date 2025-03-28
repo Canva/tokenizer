@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/sugarme/tokenizer"
+	"github.com/Canva/tokenizer"
 )
 
 // WordPieceDecoder takes care of decoding a list of wordpiece tokens

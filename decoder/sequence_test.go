@@ -5,8 +5,8 @@ import (
 	// "strings"
 	"testing"
 
-	"github.com/sugarme/tokenizer"
-	"github.com/sugarme/tokenizer/pretokenizer"
+	"github.com/Canva/tokenizer"
+	"github.com/Canva/tokenizer/pretokenizer"
 )
 
 func TestSequence(t *testing.T) {

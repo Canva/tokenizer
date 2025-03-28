@@ -1,4 +1,4 @@
-module github.com/sugarme/tokenizer
+module github.com/Canva/tokenizer
 
 go 1.18
 

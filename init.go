@@ -16,7 +16,7 @@ func init() {
 		CachedDir = tmpDir
 	} else {
 		homeDir := os.Getenv("HOME")
-		CachedDir = fmt.Sprintf("/.cache/tokenizer", homeDir)
+		CachedDir = fmt.Sprintf("%s/.cache/tokenizer", homeDir)
 	}
 
 	initEnv()

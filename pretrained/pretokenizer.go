@@ -16,10 +16,10 @@ package pretrained
 import (
 	"fmt"
 
-	"github.com/sugarme/tokenizer"
-	"github.com/sugarme/tokenizer/normalizer"
-	"github.com/sugarme/tokenizer/pretokenizer"
-	"github.com/sugarme/tokenizer/util"
+	"github.com/Canva/tokenizer"
+	"github.com/Canva/tokenizer/normalizer"
+	"github.com/Canva/tokenizer/pretokenizer"
+	"github.com/Canva/tokenizer/util"
 )
 
 func CreatePreTokenizer(config map[string]interface{}) (tokenizer.PreTokenizer, error) {

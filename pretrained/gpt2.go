@@ -4,12 +4,12 @@ import (
 	"log"
 	"os"
 
-	"github.com/sugarme/tokenizer"
-	"github.com/sugarme/tokenizer/decoder"
-	"github.com/sugarme/tokenizer/model/bpe"
-	"github.com/sugarme/tokenizer/pretokenizer"
-	"github.com/sugarme/tokenizer/processor"
-	"github.com/sugarme/tokenizer/util"
+	"github.com/Canva/tokenizer"
+	"github.com/Canva/tokenizer/decoder"
+	"github.com/Canva/tokenizer/model/bpe"
+	"github.com/Canva/tokenizer/pretokenizer"
+	"github.com/Canva/tokenizer/processor"
+	"github.com/Canva/tokenizer/util"
 )
 
 // GPT2 loads GPT2 (small) tokenizer from vocab and merges files.

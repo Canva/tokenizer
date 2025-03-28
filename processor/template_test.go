@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/sugarme/tokenizer"
+	"github.com/Canva/tokenizer"
 )
 
 func TestPiece(t *testing.T) {

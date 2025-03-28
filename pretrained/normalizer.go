@@ -18,8 +18,8 @@ package pretrained
 import (
 	"fmt"
 
-	"github.com/sugarme/tokenizer/normalizer"
-	"github.com/sugarme/tokenizer/util"
+	"github.com/Canva/tokenizer/normalizer"
+	"github.com/Canva/tokenizer/util"
 )
 
 // CreateNormalizer creates Normalizer from config data.

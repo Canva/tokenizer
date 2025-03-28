@@ -4,8 +4,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/sugarme/tokenizer"
-	"github.com/sugarme/tokenizer/normalizer"
+	"github.com/Canva/tokenizer"
+	"github.com/Canva/tokenizer/normalizer"
 )
 
 // Regular epxression to split string to `word` token

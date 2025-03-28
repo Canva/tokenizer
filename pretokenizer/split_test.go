@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/sugarme/tokenizer"
-	"github.com/sugarme/tokenizer/normalizer"
+	"github.com/Canva/tokenizer"
+	"github.com/Canva/tokenizer/normalizer"
 )
 
 func TestSplit(t *testing.T) {

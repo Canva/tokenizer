@@ -6,13 +6,13 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/sugarme/tokenizer"
-	"github.com/sugarme/tokenizer/model/bpe"
+	"github.com/Canva/tokenizer"
+	"github.com/Canva/tokenizer/model/bpe"
 
-	// "github.com/sugarme/tokenizer/normalizer"
-	"github.com/sugarme/tokenizer/pretokenizer"
-	"github.com/sugarme/tokenizer/processor"
-	"github.com/sugarme/tokenizer/util"
+	// "github.com/Canva/tokenizer/normalizer"
+	"github.com/Canva/tokenizer/pretokenizer"
+	"github.com/Canva/tokenizer/processor"
+	"github.com/Canva/tokenizer/util"
 )
 
 func getByteLevelBPE() (retVal *tokenizer.Tokenizer) {

@@ -1,6 +1,6 @@
 package processor
 
-import "github.com/sugarme/tokenizer"
+import "github.com/Canva/tokenizer"
 
 type Sequence struct {
 	processors []tokenizer.PostProcessor

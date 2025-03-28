@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/sugarme/tokenizer"
-	"github.com/sugarme/tokenizer/model"
-	"github.com/sugarme/tokenizer/model/bpe"
-	"github.com/sugarme/tokenizer/model/wordlevel"
-	"github.com/sugarme/tokenizer/model/wordpiece"
-	"github.com/sugarme/tokenizer/util"
+	"github.com/Canva/tokenizer"
+	"github.com/Canva/tokenizer/model"
+	"github.com/Canva/tokenizer/model/bpe"
+	"github.com/Canva/tokenizer/model/wordlevel"
+	"github.com/Canva/tokenizer/model/wordpiece"
+	"github.com/Canva/tokenizer/util"
 )
 
 // This file provides functions to create tokenizer.Model from input data.
