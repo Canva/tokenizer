@@ -45,7 +45,26 @@ var (
 // NOTE. default `CachedDir` is at "{$HOME}/.cache/transformer"
 // Custom `CachedDir` can be changed by setting with environment `GO_TRANSFORMER`
 func CachedPath(modelNameOrPath, fileName string) (resolvedPath string, err error) {
+	// if file exists, return it
+	filepath := fmt.Sprintf("%s/%s", modelNameOrPath, fileName)
+	if _, err := os.Stat(filepath); err == nil {
+		return filepath, nil
+	}
 
+	var CachedDir string
+	if tmpDir := os.Getenv("TEST_TMPDIR"); tmpDir != "" {
+		CachedDir = tmpDir
+	} else if homeDir := os.Getenv("HOME"); homeDir != "" {
+		CachedDir = fmt.Sprintf("%s/.cache/tokenizer", homeDir)
+	} else {
+		CachedDir = "/tmp"
+	}
+
+	if _, err := os.Stat(CachedDir); os.IsNotExist(err) {
+		if err := os.MkdirAll(CachedDir, 0755); err != nil {
+			return "", err
+		}
+	}
 	// Resolves to "candidate" filename at `CacheDir`
 	cachedFileCandidate := fmt.Sprintf("%s/%s/%s", CachedDir, modelNameOrPath, fileName)
 
@@ -54,44 +73,21 @@ func CachedPath(modelNameOrPath, fileName string) (resolvedPath string, err erro
 		return cachedFileCandidate, nil
 	}
 
-	// 2. If valid fullpath to local file, caches it and return cached filename
-	filepath := fmt.Sprintf("%s/%s", modelNameOrPath, fileName)
-	if _, err := os.Stat(filepath); err == nil {
-		err := copyFile(filepath, cachedFileCandidate)
-		if err != nil {
-			err := fmt.Errorf("CachedPath() failed at copying file: %w", err)
-			return "", err
-		}
-		return cachedFileCandidate, nil
-	}
-
 	// 3. Cached candidate file NOT exist. Try to download it and save to `CachedDir`
 	url := fmt.Sprintf("%s/%s/resolve/main/%s", HFpath, modelNameOrPath, fileName)
 	// url := fmt.Sprintf("%s/%s/raw/main/%s", HFpath, modelNameOrPath, fileName)
-	if isValidURL(url) {
-		if _, err := http.Get(url); err == nil {
-			err := downloadFile(url, cachedFileCandidate)
-			if err != nil {
-				err = fmt.Errorf("CachedPath() failed at trying to download file: %w", err)
-				return "", err
-			}
-
-			return cachedFileCandidate, nil
-		} else {
-			err = fmt.Errorf("CachedPath() failed: Unable to parse '%v' as a URL or as a local path.\n", url)
+	if _, err := http.Get(url); err == nil {
+		err := downloadFile(url, cachedFileCandidate)
+		if err != nil {
+			err = fmt.Errorf("CachedPath() failed at trying to download file: %w", err)
 			return "", err
 		}
+
+		return cachedFileCandidate, nil
+	} else {
+		err = fmt.Errorf("CachedPath() failed: Unable to parse '%v' as a URL or as a local path.\n", url)
+		return "", err
 	}
-
-	// Not resolves
-	err = fmt.Errorf("CachedPath() failed: Unable to parse '%v' as a URL or as a local path.\n", url)
-	return "", err
-}
-
-func isValidURL(url string) bool {
-
-	// TODO: implement
-	return true
 }
 
 // downloadFile downloads file from URL and stores it in local filepath.
@@ -205,42 +201,4 @@ func byteCountIEC(b uint64) string {
 	}
 	return fmt.Sprintf("%.1f %ciB",
 		float64(b)/float64(div), "KMGTPE"[exp])
-}
-
-func copyFile(src, dst string) error {
-	sourceFileStat, err := os.Stat(src)
-	if err != nil {
-		return err
-	}
-
-	if !sourceFileStat.Mode().IsRegular() {
-		return fmt.Errorf("%s is not a regular file", src)
-	}
-
-	source, err := os.Open(src)
-	if err != nil {
-		return err
-	}
-	defer source.Close()
-
-	destination, err := os.Create(dst)
-	if err != nil {
-		return err
-	}
-	defer destination.Close()
-	_, err = io.Copy(destination, source)
-	return err
-}
-
-// CleanCache removes all files cached in transformer cache directory `CachedDir`.
-//
-// NOTE. custom `CachedDir` can be changed by setting environment `GO_TRANSFORMER`
-func CleanCache() error {
-	err := os.RemoveAll(CachedDir)
-	if err != nil {
-		err = fmt.Errorf("CleanCache() failed: %w", err)
-		return err
-	}
-
-	return nil
 }
